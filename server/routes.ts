@@ -3,7 +3,6 @@ import { createServer, type Server } from "http";
 import { setupAuth } from "./auth";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
-import { z } from "zod";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -17,7 +16,7 @@ export async function registerRoutes(
 ): Promise<Server> {
   setupAuth(app);
 
-  // Products
+  // Produtos
   app.get(api.products.list.path, async (req, res) => {
     const category = req.query.category as string;
     const search = req.query.search as string;
@@ -27,7 +26,7 @@ export async function registerRoutes(
 
   app.get(api.products.get.path, async (req, res) => {
     const product = await storage.getProduct(Number(req.params.id));
-    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (!product) return res.status(404).json({ message: "Produto não encontrado" });
     res.json(product);
   });
 
@@ -49,7 +48,7 @@ export async function registerRoutes(
     res.sendStatus(204);
   });
 
-  // Orders
+  // Pedidos
   app.post(api.orders.create.path, async (req, res) => {
     if (!req.isAuthenticated()) return res.sendStatus(401);
     
@@ -59,7 +58,7 @@ export async function registerRoutes(
 
     for (const item of items) {
       const product = await storage.getProduct(item.productId);
-      if (!product) return res.status(400).json({ message: `Product ${item.productId} not found` });
+      if (!product) return res.status(400).json({ message: `Produto ${item.productId} não encontrado` });
       
       const price = product.price;
       total += price * item.quantity;
@@ -68,14 +67,14 @@ export async function registerRoutes(
         productId: item.productId,
         quantity: item.quantity,
         price: price,
-        orderId: 0 // Will be set in storage
+        orderId: 0
       });
     }
 
     const order = await storage.createOrder({
       userId: req.user.id,
       total,
-      status: "pending"
+      status: "pendente"
     }, orderItemsData);
 
     res.status(201).json(order);
@@ -87,36 +86,36 @@ export async function registerRoutes(
     res.json(orders);
   });
 
-  // Chat
+  // Chatbot de Beleza AI
   app.post(api.chat.send.path, async (req, res) => {
     const { message } = req.body;
     try {
       const completion = await openai.chat.completions.create({
         messages: [
-          { role: "system", content: "You are a helpful beauty consultant for Ecosopis, a natural and vegan cosmetics brand. You give advice on skin types and recommend Ecosopis products. Be friendly, professional, and concise." },
+          { role: "system", content: "Você é um consultor de beleza prestativo da Ecosopis, uma marca de cosméticos naturais e veganos. Você dá conselhos sobre tipos de pele e recomenda produtos Ecosopis. Seja amigável, profissional e conciso. Responda sempre em Português do Brasil." },
           { role: "user", content: message }
         ],
         model: "gpt-4o",
       });
       res.json({ response: completion.choices[0].message.content });
     } catch (e) {
-      res.status(500).json({ message: "Failed to generate response" });
+      res.status(500).json({ message: "Falha ao gerar resposta" });
     }
   });
 
-  // Seed Data
+  // Seed Data (Traduzido)
   if (process.env.NODE_ENV !== "production") {
     const existing = await storage.getProducts();
     if (existing.length === 0) {
-      console.log("Seeding database...");
+      console.log("Semeando banco de dados...");
       await storage.createProduct({
         name: "Sabonete de Argila Verde",
-        description: "Deep cleansing for oily skin. Removes impurities and toxins.",
-        ingredients: "Green Clay, Tea Tree Oil, Coconut Oil",
-        benefits: "Oil control, Detox, Anti-acne",
-        tags: ["oily", "acne", "detox"],
-        price: 2990, // 29.90
-        category: "Soaps",
+        description: "Limpeza profunda para peles oleosas. Remove impurezas e toxinas.",
+        ingredients: "Argila Verde, Óleo de Melaleuca, Óleo de Coco",
+        benefits: "Controle de oleosidade, Detox, Anti-acne",
+        tags: ["oleosa", "acne", "detox"],
+        price: 2990,
+        category: "Sabonetes",
         channels: { site: true, ml: "https://mercadolivre.com.br", shopee: "https://shopee.com.br" },
         imageUrl: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=800",
         isSubscription: false,
@@ -124,12 +123,12 @@ export async function registerRoutes(
       
       await storage.createProduct({
         name: "Sérum Vitamina C 20%",
-        description: "Brightening and anti-aging serum for all skin types.",
-        ingredients: "Vitamin C, Hyaluronic Acid, Vitamin E",
-        benefits: "Brightening, Anti-aging, Hydration",
-        tags: ["all", "anti-aging", "brightening"],
+        description: "Sérum iluminador e anti-idade para todos os tipos de pele.",
+        ingredients: "Vitamina C, Ácido Hialurônico, Vitamina E",
+        benefits: "Iluminador, Anti-idade, Hidratação",
+        tags: ["todos", "anti-idade", "iluminador"],
         price: 8990,
-        category: "Serums",
+        category: "Séruns",
         channels: { site: true },
         imageUrl: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800",
         isSubscription: false,
@@ -137,12 +136,12 @@ export async function registerRoutes(
 
       await storage.createProduct({
         name: "Box Surpresa Ecosopis",
-        description: "Monthly subscription box with 3 curated products for your skin type.",
-        ingredients: "Various",
-        benefits: "Discovery, Savings, Convenience",
-        tags: ["subscription", "box"],
+        description: "Caixa de assinatura mensal com 3 produtos selecionados para o seu tipo de pele.",
+        ingredients: "Variados",
+        benefits: "Descoberta, Economia, Praticidade",
+        tags: ["assinatura", "box"],
         price: 9990,
-        category: "Subscription",
+        category: "Assinatura",
         channels: { site: true },
         imageUrl: "https://images.unsplash.com/photo-1616401784845-180886ba9ca2?w=800",
         isSubscription: true,

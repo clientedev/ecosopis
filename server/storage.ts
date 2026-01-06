@@ -1,11 +1,10 @@
 import { db } from "./db";
 import {
-  users, products, orders, orderItems, messages,
+  users, products, orders, orderItems,
   type User, type InsertUser,
   type Product, type InsertProduct,
   type Order, type InsertOrder,
-  type OrderItem, type InsertOrderItem,
-  type Message, type InsertMessage
+  type OrderItem, type InsertOrderItem
 } from "@shared/schema";
 import { eq, ilike, or } from "drizzle-orm";
 import session from "express-session";
@@ -15,24 +14,17 @@ import { pool } from "./db";
 const PostgresSessionStore = connectPg(session);
 
 export interface IStorage {
-  // User
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: number, updates: Partial<User>): Promise<User>;
-
-  // Products
   getProducts(category?: string, search?: string): Promise<Product[]>;
   getProduct(id: number): Promise<Product | undefined>;
   createProduct(product: InsertProduct): Promise<Product>;
   updateProduct(id: number, updates: Partial<Product>): Promise<Product>;
   deleteProduct(id: number): Promise<void>;
-
-  // Orders
   createOrder(order: InsertOrder, items: InsertOrderItem[]): Promise<Order>;
   getOrders(userId: number): Promise<Order[]>;
-  
-  // Session
   sessionStore: session.Store;
 }
 

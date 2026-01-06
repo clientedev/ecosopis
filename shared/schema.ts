@@ -26,7 +26,7 @@ export const products = pgTable("products", {
   ingredients: text("ingredients").notNull(),
   benefits: text("benefits").notNull(),
   tags: text("tags").array(),
-  price: integer("price").notNull(), // in cents
+  price: integer("price").notNull(), // em centavos
   channels: jsonb("channels").$type<{
     site: boolean;
     ml?: string;
@@ -39,9 +39,9 @@ export const products = pgTable("products", {
 
 export const orders = pgTable("orders", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull(), // Foreign key to users
+  userId: integer("user_id").notNull(),
   total: integer("total").notNull(),
-  status: text("status").notNull().default("pending"),
+  status: text("status").notNull().default("pendente"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -73,7 +73,7 @@ export const orderItemsRelations = relations(orderItems, ({ one }) => ({
   }),
 }));
 
-export const orderItemsRelations2 = relations(products, ({ many }) => ({
+export const productsRelations = relations(products, ({ many }) => ({
   orderItems: many(orderItems),
 }));
 
