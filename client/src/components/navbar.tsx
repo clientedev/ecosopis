@@ -27,7 +27,7 @@ export function Navbar() {
           <div className="h-10 w-10 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors duration-500">
             <Leaf className="h-5 w-5 text-primary group-hover:text-white transition-colors duration-500" />
           </div>
-          <span className="font-display text-2xl font-bold tracking-tighter text-foreground group-hover:text-primary transition-colors duration-500">
+          <span className="text-2xl font-bold tracking-tighter text-foreground group-hover:text-primary transition-colors duration-500" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
             ECOSOPIS
           </span>
         </Link>

@@ -77,9 +77,9 @@ export function SkinQuiz() {
               {!result ? (
                 <motion.div
                   key={step}
-                  initial={ { opacity: 0, x: 20 } }
-                  animate={ { opacity: 1, x: 0 } }
-                  exit={ { opacity: 0, x: -20 } }
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
                   className="space-y-8"
                 >
                   <div className="flex items-center justify-between mb-8">
@@ -87,12 +87,12 @@ export function SkinQuiz() {
                     <div className="h-1.5 w-32 bg-muted rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-primary transition-all duration-500" 
-                        style={ { width: `${((step + 1) / questions.length) * 100}%` } }
+                        style={{ width: `${((step + 1) / questions.length) * 100}%` }}
                       />
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-bold leading-snug">{questions[step].text}</h3>
+                  <h3 className="text-2xl font-bold leading-snug" style={{ fontFamily: "Space Grotesk, sans-serif" }}>{questions[step].text}</h3>
 
                   <div className="grid gap-4">
                     {questions[step].options.map((option) => (

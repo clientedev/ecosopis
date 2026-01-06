@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="border-t bg-card py-12 mt-20">
       <div className="container mx-auto px-4 grid md:grid-cols-4 gap-12">
         <div className="col-span-2">
-          <h2 className="text-2xl font-display font-bold text-primary mb-6">ECOSOPIS</h2>
+          <h2 className="text-2xl font-bold text-primary mb-6" style={{ fontFamily: "Space Grotesk, sans-serif" }}>ECOSOPIS</h2>
           <p className="text-muted-foreground max-w-sm leading-relaxed">
             Sua jornada para uma beleza consciente começa aqui. Cosméticos naturais que cuidam de você e do planeta.
           </p>

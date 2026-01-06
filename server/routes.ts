@@ -103,51 +103,5 @@ export async function registerRoutes(
     }
   });
 
-  // Seed Data (Traduzido)
-  if (process.env.NODE_ENV !== "production") {
-    const existing = await storage.getProducts();
-    if (existing.length === 0) {
-      console.log("Semeando banco de dados...");
-      await storage.createProduct({
-        name: "Sabonete de Argila Verde",
-        description: "Limpeza profunda para peles oleosas. Remove impurezas e toxinas.",
-        ingredients: "Argila Verde, Óleo de Melaleuca, Óleo de Coco",
-        benefits: "Controle de oleosidade, Detox, Anti-acne",
-        tags: ["oleosa", "acne", "detox"],
-        price: 2990,
-        category: "Sabonetes",
-        channels: { site: true, ml: "https://mercadolivre.com.br", shopee: "https://shopee.com.br" },
-        imageUrl: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=800",
-        isSubscription: false,
-      });
-      
-      await storage.createProduct({
-        name: "Sérum Vitamina C 20%",
-        description: "Sérum iluminador e anti-idade para todos os tipos de pele.",
-        ingredients: "Vitamina C, Ácido Hialurônico, Vitamina E",
-        benefits: "Iluminador, Anti-idade, Hidratação",
-        tags: ["todos", "anti-idade", "iluminador"],
-        price: 8990,
-        category: "Séruns",
-        channels: { site: true },
-        imageUrl: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800",
-        isSubscription: false,
-      });
-
-      await storage.createProduct({
-        name: "Box Surpresa Ecosopis",
-        description: "Caixa de assinatura mensal com 3 produtos selecionados para o seu tipo de pele.",
-        ingredients: "Variados",
-        benefits: "Descoberta, Economia, Praticidade",
-        tags: ["assinatura", "box"],
-        price: 9990,
-        category: "Assinatura",
-        channels: { site: true },
-        imageUrl: "https://images.unsplash.com/photo-1616401784845-180886ba9ca2?w=800",
-        isSubscription: true,
-      });
-    }
-  }
-
   return httpServer;
 }

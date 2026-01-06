@@ -51,7 +51,7 @@ def chat_beleza(request):
     try:
         completion = client.chat.completions.create(
             messages=[
-                {"role": "system", "content": "Você é um consultor de beleza prestativo da Ecosopis. Responda sempre em Português do Brasil."},
+                {"role": "system", "content": "Você é um consultor de beleza prestativo da Ecosopis, uma marca de cosméticos naturais e veganos. Você dá conselhos sobre tipos de pele e recomenda produtos Ecosopis. Seja amigável, profissional e conciso. Responda sempre em Português do Brasil."},
                 {"role": "user", "content": mensagem}
             ],
             model="gpt-4o",

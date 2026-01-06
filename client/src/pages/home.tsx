@@ -66,7 +66,7 @@ export function Home() {
             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-primary/10 text-primary rounded-full">
               Pura • Vegana • Científica
             </span>
-            <h1 className="text-6xl md:text-7xl font-display font-bold leading-[1.1] text-foreground mb-6">
+            <h1 className="text-6xl md:text-7xl font-bold leading-[1.1] text-foreground mb-6" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
               A ciência da <span className="text-primary italic">natureza</span> na sua pele.
             </h1>
             <p className="text-lg text-muted-foreground mb-10 max-w-lg leading-relaxed">

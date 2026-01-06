@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
+:root {
   --font-sans: "Inter", "sans-serif";
   --font-display: "Space Grotesk", "sans-serif";
 
@@ -24,7 +24,7 @@
   --muted: 120 5% 95%;
   --muted-foreground: 120 5% 45%;
 
-  --accent: 45 80% 50%; /* Destaque para CTAs */
+  --accent: 45 80% 50%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84.2% 60.2%;
@@ -73,9 +73,6 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
   }
 }
 
