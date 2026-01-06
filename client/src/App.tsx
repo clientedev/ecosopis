@@ -3,44 +3,39 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { CartDrawer } from "@/components/CartDrawer";
-import { ChatWidget } from "@/components/ChatWidget";
-
-import Home from "@/pages/Home";
-import Catalog from "@/pages/Catalog";
-import ProductDetails from "@/pages/ProductDetails";
-import Quiz from "@/pages/Quiz";
-import BoxSubscription from "@/pages/BoxSubscription";
-import Auth from "@/pages/Auth";
-import AdminDashboard from "@/pages/AdminDashboard";
 import NotFound from "@/pages/not-found";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Home } from "@/pages/home";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { CartProvider } from "@/hooks/use-cart";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/products" component={Catalog} />
-      <Route path="/product/:id" component={ProductDetails} />
-      <Route path="/quiz" component={Quiz} />
-      <Route path="/box" component={BoxSubscription} />
-      <Route path="/auth" component={Auth} />
-      <Route path="/admin" component={AdminDashboard} />
-      <Route component={NotFound} />
-    </Switch>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Router />
-        <CartDrawer />
-        <ChatWidget />
-        <Toaster />
-      </TooltipProvider>
+      <ThemeProvider defaultTheme="light" storageKey="ecosopis-theme">
+        <TooltipProvider>
+          <CartProvider>
+            <Router />
+            <Toaster />
+          </CartProvider>
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
