@@ -1,0 +1,149 @@
+Você é um desenvolvedor full-stack sênior com forte domínio de UX/UI, arquitetura de sistemas e aplicações em produção.
+
+Desenvolva um e-commerce completo para a marca ECOSOPIS (cosméticos naturais e veganos), utilizando como referências obrigatórias:
+- https://ecosopis.com.br (identidade da marca, cores, logo, produtos e linguagem)
+- https://principiaskin.com (layout moderno, minimalismo, organização e estética científica)
+
+========================
+IDENTIDADE VISUAL (OBRIGATÓRIO)
+========================
+- Utilizar como cor principal o VERDE OFICIAL da ECOSOPIS (baseado na logo)
+- Utilizar branco e tons neutros como cores secundárias
+- Usar a logo oficial da ECOSOPIS no header e favicon
+- Visual MODERNO, LIMPO e PROFISSIONAL
+- Evitar estética rústica, artesanal ou genérica
+
+Tipografia:
+- Usar tipografia moderna, elegante e legível
+- Fontes sans-serif contemporâneas
+- Boa hierarquia visual (títulos claros, leitura confortável)
+
+========================
+REQUISITOS DE EXECUÇÃO
+========================
+- O projeto deve rodar em produção no Railway
+- Utilizar banco de dados PostgreSQL
+- Estrutura preparada para deploy no Railway
+- Variáveis de ambiente organizadas
+
+========================
+REQUISITOS TÉCNICOS IMPORTANTES
+========================
+- TODO o sistema de autenticação (login, cadastro, sessões, permissões) deve ser implementado em PYTHON
+- Controle de acesso por perfil (admin / cliente)
+- Backend preparado para escalar
+
+========================
+OBJETIVO DO PRODUTO
+========================
+Criar um e-commerce visualmente elegante, moderno e fácil de usar, focado em conversão, experiência do usuário e operação simples no dia a dia.
+
+Permitir:
+- Compra direta no site
+- Redirecionamento para Mercado Livre
+- Redirecionamento para Shopee
+
+Cada produto deve permitir definir quais canais de compra estarão disponíveis.
+
+========================
+UX / UI (FOCO EM CONVERSÃO)
+========================
+- Layout clean e moderno
+- Muito espaço em branco
+- Cards de produto organizados
+- Botões claros e modernos
+- Mobile-first
+- Checkout simples, rápido e intuitivo
+
+========================
+FUNCIONALIDADES ESSENCIAIS
+========================
+
+1️⃣ CATÁLOGO DE PRODUTOS
+Cada produto deve conter:
+- Nome
+- Descrição objetiva
+- Ingredientes
+- Benefícios
+- Tags (tipo de pele, problemas, objetivos)
+- Preço (quando houver compra no site)
+- Canais de compra:
+  - Compra direta no site
+  - Mercado Livre (link externo)
+  - Shopee (link externo)
+
+Exibir dinamicamente os botões de compra conforme os canais ativados.
+
+2️⃣ CHECKOUT NO SITE
+- Carrinho de compras
+- Cálculo de frete por CEP
+- Pagamento via Pix e Cartão
+- Confirmação automática do pedido
+
+3️⃣ CONTA DO CLIENTE
+- Cadastro e login (auth em Python)
+- Histórico de pedidos feitos no site
+- Endereços salvos
+
+4️⃣ QUIZZ DE TIPO DE PELE
+- Quizz simples e estratégico
+- Identificação do tipo de pele
+- Indicação personalizada de produtos
+- CTA direto para finalizar a compra
+
+5️⃣ BOX SURPRESA ECOSOPIS
+- Produto recorrente (mensal)
+- Personalização por tipo de pele e necessidades
+- Comunicação focada em experiência e encantamento
+
+6️⃣ CHAT COM IA
+- Chat com IA para dúvidas e orientação
+- Linguagem alinhada com a marca
+- Atuação como consultora de beleza
+
+========================
+ÁREA ADMINISTRATIVA (MUITO IMPORTANTE)
+========================
+Criar uma área administrativa simples, clara e fácil de interagir, pensada para times de operação e BI (não técnicos).
+
+A área admin deve permitir:
+- Cadastro e edição de produtos
+- Definição dos canais de venda por produto
+- Gestão de pedidos
+- Gestão de clientes
+- Gestão de tags e categorias
+- Configuração do Box Surpresa
+- Visualização de dados básicos (pedidos, produtos, status)
+
+A interface administrativa deve ser:
+- Intuitiva
+- Limpa
+- Sem complexidade técnica
+- Fácil de usar no dia a dia
+
+========================
+REGRAS IMPORTANTES
+========================
+- Links de Mercado Livre e Shopee apenas redirecionam o usuário
+- Apenas pedidos finalizados no site geram pedido interno
+- Código limpo, organizado e documentado
+- Criar dados de exemplo baseados nos produtos da Ecosopis
+- SEO básico implementado
+
+========================
+ENTREGÁVEIS
+========================
+- E-commerce funcional completo
+- Design moderno alinhado à Ecosopis
+- Banco de dados PostgreSQL
+- Autenticação em Python
+- Área administrativa funcional e amigável
+- Quizz funcional
+- Box Surpresa configurável
+- Chat IA integrado
+- README explicando execução local e no Railway
+
+========================
+OBJETIVO FINAL
+========================
+Entregar um e-commerce MODERNO, PROFISSIONAL e ESCALÁVEL, com identidade visual forte da ECOSOPIS, experiência premium inspirada na Principia, operação simples para o time interno e foco total em conversão e recorrência.
