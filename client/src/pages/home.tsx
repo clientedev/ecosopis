@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingBag, ArrowRight, MessageSquare, Sparkles } from "lucide-react";
 import { useCart, type Product } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
-
 import { SkinQuiz } from "@/components/skin-quiz";
 
 export function Home() {
@@ -58,9 +57,9 @@ export function Home() {
       <section className="relative h-[85vh] flex items-center bg-[#F9FBF9]">
         <div className="container mx-auto px-6 grid lg:grid-cols-2 items-center gap-12">
           <motion.div
-            initial={ { opacity: 0, y: 30 } }
-            animate={ { opacity: 1, y: 0 } }
-            transition={ { duration: 0.8 } }
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             className="z-10"
           >
             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-primary/10 text-primary rounded-full">
@@ -83,9 +82,9 @@ export function Home() {
             </div>
           </motion.div>
           <motion.div
-            initial={ { opacity: 0, scale: 0.9 } }
-            animate={ { opacity: 1, scale: 1 } }
-            transition={ { duration: 1, ease: "easeOut" } }
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
             className="relative lg:h-full flex justify-center items-center"
           >
             <div className="absolute w-[120%] h-[120%] bg-primary/5 rounded-full blur-3xl -z-10" />
@@ -103,7 +102,7 @@ export function Home() {
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-end mb-16">
             <div>
-              <h2 className="text-4xl font-display font-bold mb-4">Essenciais Ecosopis</h2>
+              <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Essenciais Ecosopis</h2>
               <p className="text-muted-foreground">Os favoritos da nossa comunidade.</p>
             </div>
             <Button variant="link" className="text-primary font-bold">Ver todos <ArrowRight className="ml-1 h-4 w-4" /></Button>
@@ -116,10 +115,10 @@ export function Home() {
               products?.slice(0, 3).map((product, i) => (
                 <motion.div
                   key={product.id}
-                  initial={ { opacity: 0, y: 20 } }
-                  whileInView={ { opacity: 1, y: 0 } }
-                  viewport={ { once: true } }
-                  transition={ { delay: i * 0.1 } }
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
                 >
                   <Card className="group overflow-hidden border-none bg-[#FDFDFD] hover-elevate rounded-3xl">
                     <CardContent className="p-0">
@@ -142,7 +141,7 @@ export function Home() {
                         <h3 className="text-xl font-bold mb-3">{product.nome}</h3>
                         <p className="text-sm text-muted-foreground mb-6 line-clamp-2">{product.descricao}</p>
                         <div className="flex items-center justify-between">
-                          <span className="text-2xl font-display font-bold">R$ {(product.preco / 100).toFixed(2).replace('.', ',')}</span>
+                          <span className="text-2xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>R$ {(product.preco / 100).toFixed(2).replace('.', ',')}</span>
                         </div>
                       </div>
                     </CardContent>
@@ -169,9 +168,9 @@ export function Home() {
         <AnimatePresence>
           {showChat && (
             <motion.div
-              initial={ { opacity: 0, y: 20, scale: 0.9 } }
-              animate={ { opacity: 1, y: 0, scale: 1 } }
-              exit={ { opacity: 0, y: 20, scale: 0.9 } }
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.9 }}
               className="absolute bottom-20 right-0 w-96 glass-morphism rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[500px]"
             >
               <div className="p-6 bg-primary text-primary-foreground flex items-center gap-3">
