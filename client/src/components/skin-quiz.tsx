@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { Link } from "wouter";
 
 interface Question {
   id: number;
@@ -132,9 +133,11 @@ export function SkinQuiz() {
                   <p className="text-lg text-muted-foreground max-w-md mx-auto">
                     Com base nas suas respostas, recomendamos uma rotina focada em equilíbrio e proteção botânica.
                   </p>
-                  <Button size="lg" className="rounded-full h-14 px-10 text-lg">
-                    Ver Minha Recomendação
-                    <Sparkles className="ml-2 h-5 w-5" />
+                  <Button size="lg" className="rounded-full h-14 px-10 text-lg" asChild>
+                    <Link href="/checkout">
+                      Finalizar Compra
+                      <Sparkles className="ml-2 h-5 w-5" />
+                    </Link>
                   </Button>
                   <Button variant="link" onClick={() => { setStep(0); setResult(null); setAnswers({}); }} className="block mx-auto text-muted-foreground">
                     Refazer o teste

@@ -151,8 +151,8 @@ export function Navbar() {
                       <span>R$ {(total / 100).toFixed(2).replace('.', ',')}</span>
                     </div>
                   </div>
-                  <Button className="w-full h-14 rounded-full text-lg font-bold shadow-xl shadow-primary/20">
-                    Finalizar Compra
+                  <Button className="w-full h-14 rounded-full text-lg font-bold shadow-xl shadow-primary/20" asChild>
+                    <Link href="/checkout">Finalizar Compra</Link>
                   </Button>
                 </div>
               )}

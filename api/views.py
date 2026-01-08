@@ -55,6 +55,11 @@ def sair(request):
     logout(request)
     return Response(status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def me(request):
+    return Response(UserSerializer(request.user).data)
+
 @api_view(['POST'])
 def chat_beleza(request):
     mensagem = request.data.get('message')
