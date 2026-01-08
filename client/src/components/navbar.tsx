@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, User, Menu, Leaf, Search, Trash2, Plus, Minus } from "lucide-react";
+import { ShoppingBag, User, Menu, Leaf, Search, Trash2, Plus, Minus, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,10 +7,13 @@ import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/hooks/use-auth";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export function Navbar() {
   const { items, removeItem, updateQuantity, total } = useCart();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
+  const { user, logout } = useAuth();
   const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const links = [
@@ -42,9 +45,9 @@ export function Navbar() {
               </span>
               <motion.div 
                 className="absolute -bottom-1 left-0 h-0.5 bg-primary"
-                initial={ { width: 0 } }
-                whileHover={ { width: "100%" } }
-                transition={ { duration: 0.3 } }
+                initial={{ width: 0 }}
+                whileHover={{ width: "100%" }}
+                transition={{ duration: 0.3 }}
               />
             </Link>
           ))}
@@ -81,7 +84,7 @@ export function Navbar() {
                       <ShoppingBag className="h-10 w-10 text-muted-foreground" />
                     </div>
                     <p className="text-muted-foreground font-medium">Seu carrinho está vazio.</p>
-                    <Button variant="outline" className="rounded-full px-8">Começar a Comprar</Button>
+                    <Button variant="outline" className="rounded-full px-8" onClick={() => setLocation("/produtos")}>Começar a Comprar</Button>
                   </div>
                 ) : (
                   <div className="py-8 space-y-8">
@@ -160,9 +163,35 @@ export function Navbar() {
           </Sheet>
 
           <div className="h-6 w-[1px] bg-black/5 mx-2" />
-          <Button variant="ghost" size="icon" className="rounded-full hover:bg-black/5">
-            <User className="h-5 w-5" />
-          </Button>
+          
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full hover:bg-black/5">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 shadow-xl border-none">
+                <div className="px-4 py-2 border-b mb-2">
+                  <p className="font-bold text-sm truncate">{user.username}</p>
+                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                </div>
+                {user.perfil === 'admin' && (
+                  <DropdownMenuItem onClick={() => setLocation("/admin")} className="rounded-xl cursor-pointer">
+                    <Leaf className="mr-2 h-4 w-4" /> Painel Admin
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={() => logout()} className="rounded-xl cursor-pointer text-destructive focus:text-destructive">
+                  <LogOut className="mr-2 h-4 w-4" /> Sair
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button variant="ghost" size="icon" className="rounded-full hover:bg-black/5" onClick={() => setLocation("/login")}>
+              <User className="h-5 w-5" />
+            </Button>
+          )}
+
           <Button variant="ghost" size="icon" className="lg:hidden rounded-full">
             <Menu className="h-5 w-5" />
           </Button>
