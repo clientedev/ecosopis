@@ -1,11 +1,10 @@
 from rest_framework import serializers
-from .models import Produto, Pedido, ItemPedido
-from django.contrib.auth.models import User
+from .models import Produto, Pedido, ItemPedido, User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password']
+        fields = ('id', 'username', 'email', 'perfil', 'telefone', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -18,12 +17,13 @@ class ProdutoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ItemPedidoSerializer(serializers.ModelSerializer):
+    produto_nome = serializers.ReadOnlyField(source='produto.nome')
     class Meta:
         model = ItemPedido
-        fields = '__all__'
+        fields = ('id', 'produto', 'produto_nome', 'quantidade', 'preco_unitario')
 
 class PedidoSerializer(serializers.ModelSerializer):
     itens = ItemPedidoSerializer(many=True, read_only=True)
     class Meta:
         model = Pedido
-        fields = '__all__'
+        fields = ('id', 'usuario', 'total', 'status', 'cep', 'endereco', 'criado_em', 'itens')

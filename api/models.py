@@ -35,12 +35,12 @@ class Pedido(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pedidos')
     total = models.IntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
-    cep = models.CharField(max_length=10)
-    endereco = models.TextField()
+    cep = models.CharField(max_length=10, default='')
+    endereco = models.TextField(default='')
     criado_em = models.DateTimeField(auto_now_add=True)
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, related_name='itens', on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, null=True)
     quantidade = models.IntegerField()
-    preco_unitario = models.IntegerField()
+    preco_unitario = models.IntegerField(default=0)
