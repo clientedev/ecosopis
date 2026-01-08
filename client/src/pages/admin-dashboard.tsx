@@ -68,7 +68,22 @@ export function AdminDashboard() {
         </div>
 
         <div className="lg:col-span-3 space-y-8">
-          <div className="flex justify-between items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Card className="rounded-2xl border-none shadow-sm p-6 bg-white">
+              <p className="text-sm text-muted-foreground mb-1">Total de Vendas</p>
+              <h3 className="text-2xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>R$ 12.450,00</h3>
+            </Card>
+            <Card className="rounded-2xl border-none shadow-sm p-6 bg-white">
+              <p className="text-sm text-muted-foreground mb-1">Pedidos Ativos</p>
+              <h3 className="text-2xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>24</h3>
+            </Card>
+            <Card className="rounded-2xl border-none shadow-sm p-6 bg-white">
+              <p className="text-sm text-muted-foreground mb-1">Novos Clientes</p>
+              <h3 className="text-2xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>12</h3>
+            </Card>
+          </div>
+
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Gerenciar Produtos</h2>
             <Button onClick={() => setIsAdding(true)} className="rounded-full gap-2">
               <Plus className="h-4 w-4" /> Novo Produto
@@ -86,6 +101,11 @@ export function AdminDashboard() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <Input type="number" placeholder="Preço (em centavos)" value={newProduct.preco} onChange={e => setNewProduct({...newProduct, preco: parseInt(e.target.value)})} className="rounded-xl h-12" />
                   <Input placeholder="URL da Imagem" value={newProduct.imagem_url} onChange={e => setNewProduct({...newProduct, imagem_url: e.target.value})} className="rounded-xl h-12" />
+                </div>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <Input placeholder="Mercado Livre URL" value={newProduct.canais.ml || ""} onChange={e => setNewProduct({...newProduct, canais: {...newProduct.canais, ml: e.target.value}})} className="rounded-xl h-12" />
+                  <Input placeholder="Shopee URL" value={newProduct.canais.shopee || ""} onChange={e => setNewProduct({...newProduct, canais: {...newProduct.canais, shopee: e.target.value}})} className="rounded-xl h-12" />
+                  <Input placeholder="Tags (sep. vírgula)" value={newProduct.tags.join(', ')} onChange={e => setNewProduct({...newProduct, tags: e.target.value.split(',').map(s => s.trim())})} className="rounded-xl h-12" />
                 </div>
                 <div className="flex gap-4">
                   <Button onClick={() => createMutation.mutate(newProduct)} className="rounded-full px-8">Salvar Produto</Button>

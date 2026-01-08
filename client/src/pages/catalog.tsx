@@ -67,17 +67,35 @@ export function Catalog() {
                       <span className="text-[10px] text-muted-foreground ml-1">(4.9)</span>
                     </div>
                     <h3 className="font-bold text-lg mb-2 leading-tight h-12 line-clamp-2">{product.nome}</h3>
-                    <div className="flex items-center justify-between mt-4">
-                      <span className="text-xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                        R$ {(product.preco / 100).toFixed(2).replace('.', ',')}
-                      </span>
-                      <Button
-                        size="icon"
-                        className="rounded-full h-10 w-10"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        <ShoppingBag className="h-4 w-4" />
-                      </Button>
+                    
+                    <div className="flex flex-col gap-2 mt-4">
+                      {product.canais?.site && (
+                        <div className="flex items-center justify-between">
+                          <span className="text-xl font-bold" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+                            R$ {(product.preco / 100).toFixed(2).replace('.', ',')}
+                          </span>
+                          <Button
+                            size="icon"
+                            className="rounded-full h-10 w-10"
+                            onClick={() => handleAddToCart(product)}
+                          >
+                            <ShoppingBag className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      )}
+                      
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        {product.canais?.ml && (
+                          <Button variant="outline" size="sm" className="rounded-full text-[10px] h-8" asChild>
+                            <a href={product.canais.ml} target="_blank" rel="noopener noreferrer">Mercado Livre</a>
+                          </Button>
+                        )}
+                        {product.canais?.shopee && (
+                          <Button variant="outline" size="sm" className="rounded-full text-[10px] h-8" asChild>
+                            <a href={product.canais.shopee} target="_blank" rel="noopener noreferrer">Shopee</a>
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </CardContent>

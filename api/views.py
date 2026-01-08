@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Produto, Pedido, ItemPedido
+from .models import Produto, Pedido, ItemPedido, User
 from .serializers import ProdutoSerializer, PedidoSerializer, UserSerializer
 from django.contrib.auth import authenticate, login, logout
 from openai import OpenAI
@@ -21,6 +21,16 @@ class ProdutoViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         return [IsAuthenticated()]
+
+class PedidoViewSet(viewsets.ModelViewSet):
+    queryset = Pedido.objects.all()
+    serializer_class = PedidoSerializer
+
+    def get_permissions(self):
+        return [IsAuthenticated()]
+
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
 
 @api_view(['POST'])
 def registrar(request):

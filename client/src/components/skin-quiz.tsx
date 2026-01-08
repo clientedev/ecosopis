@@ -47,21 +47,27 @@ export function SkinQuiz() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<string | null>(null);
+  const { data: products } = useQuery<any[]>({
+    queryKey: ["/api/produtos"],
+  });
 
   const handleOptionSelect = (questionId: number, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
     if (step < questions.length - 1) {
       setStep(step + 1);
     } else {
-      calculateResult();
+      calculateResult({ ...answers, [questionId]: value });
     }
   };
 
-  const calculateResult = () => {
-    // Lógica simples para exemplo
-    const mainType = answers[1];
+  const calculateResult = (finalAnswers: Record<number, string>) => {
+    const mainType = finalAnswers[1];
     setResult(mainType);
   };
+
+  const recommendedProducts = products?.filter(p => 
+    p.tags?.some((t: string) => t.toLowerCase().includes(result?.toLowerCase() || ""))
+  ).slice(0, 2);
 
   return (
     <section className="py-24 bg-[#F4F7F4]">
